@@ -7,7 +7,8 @@ declare module '@vue/runtime-core'{
             id: number,
             name: string,
             done: boolean,
-        };
+        },
+        nextTask_id:number,
     }
 
     interface ComponentCustomProperties{

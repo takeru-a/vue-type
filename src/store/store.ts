@@ -19,8 +19,26 @@ export default createStore({
       done:false,
     },
   ],
+  nextTask_id:4,
   },
   mutations: {
+    addTask(state, {name}){
+      state.tasks.push({
+        id: state.nextTask_id,
+        name,
+        done:false,
+      });
+      state.nextTask_id++;
+    },
+
+    changeTaskStatus(state, {id}){
+      const filtered = state.tasks.filter(task=>{
+        return task.id===id;
+      })
+      filtered.forEach(task=>{
+        task.done = !task.done;
+      })
+    },
   },
   actions: {
   },

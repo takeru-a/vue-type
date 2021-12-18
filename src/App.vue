@@ -41,6 +41,10 @@
     フィルタリングしない
   </li>
 </ul>
+
+<h2>save & restore</h2>
+<button type="button" @click="save">save</button>
+<button type="button" @click="restore">restore</button>
 </div>
 </template>
 
@@ -92,6 +96,14 @@ export default defineComponent({
   changeLabel(labalid:number){
     this.$store.commit('changeLabel',labalid)
   },
+
+  save(){
+    this.$store.dispatch('save');
+  },
+  restore(){
+    this.$store.dispatch('restore');
+  },
+
  },
 });
 

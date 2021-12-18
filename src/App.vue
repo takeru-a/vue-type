@@ -32,12 +32,12 @@
 <ul>
   <li v-for="label in labels" v-bind:key="label.id">
     <input type="checkbox" v-bind:checked="label.id===filter" 
-    v-on:change="changeLabel(labal.id)">
-    {{ labal.text }}
+    v-on:change="changeLabel(label.id)">
+    {{ label.text }}
   </li>
   <li>
-    <input type="radio" v-bind:checked="filter===-1"
-    v-on:change ="changeLabel(-1)">
+    <input type="radio" v-bind:checked="filter===0"
+    v-on:change="changeLabel(0)">
     フィルタリングしない
   </li>
 </ul>
@@ -55,7 +55,7 @@ export default defineComponent({
     }
   },
  computed:{
-   tasks():any{
+   tasks(){
      return this.$store.getters.filteredTasks;
    },
    labels():any{
@@ -90,7 +90,7 @@ export default defineComponent({
     return label ? label.text:"";
   },
   changeLabel(labalid:number){
-    this.$store.commit('changeLabel',{filter:labalid})
+    this.$store.commit('changeLabel',labalid)
   },
  },
 });

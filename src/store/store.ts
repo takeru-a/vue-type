@@ -43,11 +43,11 @@ export default createStore({
 
   nextTask_id:4,
   nextLabel:5,
-  filter: -1,
+  filter: 0,
   },
   getters:{
     filteredTasks(state){
-      if(state.filter < 0){
+      if(state.filter <= 0){
           return state.tasks;
       }
       return state.tasks.filter(task=>{
@@ -81,8 +81,8 @@ export default createStore({
       })
       state.nextLabel++;
     },
-    changeLabel(state, {filter}){
-      state.filter = filter
+    changeLabel(state, filter:number){
+      state.filter = filter;
     }
   },
   actions: {

@@ -83,9 +83,31 @@ export default createStore({
     },
     changeLabel(state, filter:number){
       state.filter = filter;
-    }
+    },
+
+    restore(state, {tasks, labels, nextTask_id, nextLabel}){
+      state.tasks = tasks;
+      state.labels = labels;
+      state.nextTask_id = nextTask_id;
+      state.nextLabel = nextLabel;
+    },
   },
   actions: {
+    save({state}){
+      const data = {
+        tasks:state.tasks,
+        labels: state.labels,
+        nextTask_id : state.nextTask_id,
+        nextLabel: state.nextLabel,
+      }
+      localStorage.setItem('task-app-data',JSON.stringify(data));
+    },
+    restore({commit}){
+      const data = localStorage.getItem('task-app-data');
+      if(data){
+        commit('restore',JSON.parse(data));
+      }
+    },
   },
   modules: {
   }

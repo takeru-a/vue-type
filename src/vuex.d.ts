@@ -15,6 +15,7 @@ declare module '@vue/runtime-core'{
         },
         nextTask_id:number,
         nextLabel:number,
+        filter: number,
     }
 
     interface ComponentCustomProperties{

@@ -5,12 +5,27 @@
   <li v-for="task in tasks" v-bind:key="task.id">  
     <input type="checkbox" v-bind:checked="task.done" 
     v-on:change="changeTaskStatus(task)">
-    {{ task.name }}
+    {{ task.name }} - 
+    <span v-for="id in task.labelids" v-bind:key="id">
+      {{ getLabelText(id) }} <tr/>
+    </span>
   </li>
 </ol>
 
 <form v-on:submit.prevent="addTask">
 <input type="text" v-model="newTaskName" placeholder="NewTask">
+</form>
+
+<h2>Labels</h2>
+<ul>
+  <li v-for="label in labels" v-bind:key="label.id">
+    <input type="checkbox" v-bind:value="label.id" v-model="newTaskLabelids">
+    {{ label.text }}
+  </li>
+</ul>
+
+<form v-on:submit.prevent="addLabel">
+  <input type="text" v-model="newLabelText" placeholder="NewLabel">
 </form>
 
 </div>
@@ -22,25 +37,42 @@ export default defineComponent({
   data(){
     return{
       newTaskName:"",
+      newTaskLabelids:[],
+      newLabelText:"",
     }
   },
  computed:{
    tasks(){
      return this.$store.state.tasks;
    },
+   labels():any{
+     return this.$store.state.labels
+   },
  },
  methods:{
    addTask(){
      this.$store.commit('addTask',{
        name: this.newTaskName,
+       labelids: this.newTaskLabelids,
      })
-      this.newTaskName = ""
+      this.newTaskName = "";
+      this.newTaskLabelids = [];
    },
    changeTaskStatus(task:any){
      this.$store.commit('changeTaskStatus',{
-       id: task.id
+       id: task.id,
      })
    },
+  addLabel(){
+    this.$store.commit('addLabel',{
+      text:this.newLabelText,
+    })
+    this.newLabelText = "";
+  },
+  getLabelText(id:number){
+    const label = this.labels.filter((label:any) => label.id === id)[0]
+    return label ? label.text:"";
+  },
  },
 });
 

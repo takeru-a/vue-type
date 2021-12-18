@@ -3,6 +3,7 @@ import { Store } from "vuex";
 
 declare module '@vue/runtime-core'{
     interface State {
+        
         tasks:{
             id: number,
             name: string,
@@ -15,6 +16,8 @@ declare module '@vue/runtime-core'{
         },
         nextTask_id:number,
         nextLabel:number,
+        filter: number,
+        
     }
 
     interface ComponentCustomProperties{

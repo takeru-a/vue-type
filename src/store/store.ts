@@ -43,6 +43,17 @@ export default createStore({
 
   nextTask_id:4,
   nextLabel:5,
+  filter: 0,
+  },
+  getters:{
+    filteredTasks(state){
+      if(state.filter <= 0){
+          return state.tasks;
+      }
+      return state.tasks.filter(task=>{
+        return task.labelids.indexOf(state.filter) >= 0;
+      })
+    },
   },
   mutations: {
     addTask(state, {name, labelids}){
@@ -70,6 +81,9 @@ export default createStore({
       })
       state.nextLabel++;
     },
+    changeLabel(state, filter:number){
+      state.filter = filter;
+    }
   },
   actions: {
   },

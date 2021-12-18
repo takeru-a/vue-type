@@ -28,6 +28,19 @@
   <input type="text" v-model="newLabelText" placeholder="NewLabel">
 </form>
 
+<h2>filtering</h2>
+<ul>
+  <li v-for="label in labels" v-bind:key="label.id">
+    <input type="checkbox" v-bind:checked="label.id===filter" 
+    v-on:change="changeLabel(label.id)">
+    {{ label.text }}
+  </li>
+  <li>
+    <input type="radio" v-bind:checked="filter===0"
+    v-on:change="changeLabel(0)">
+    フィルタリングしない
+  </li>
+</ul>
 </div>
 </template>
 
@@ -43,11 +56,14 @@ export default defineComponent({
   },
  computed:{
    tasks(){
-     return this.$store.state.tasks;
+     return this.$store.getters.filteredTasks;
    },
    labels():any{
-     return this.$store.state.labels
+     return this.$store.state.labels;
    },
+   filter():number{
+     return this.$store.state.filter;
+   }
  },
  methods:{
    addTask(){
@@ -72,6 +88,9 @@ export default defineComponent({
   getLabelText(id:number){
     const label = this.labels.filter((label:any) => label.id === id)[0]
     return label ? label.text:"";
+  },
+  changeLabel(labalid:number){
+    this.$store.commit('changeLabel',labalid)
   },
  },
 });

@@ -6,9 +6,15 @@ declare module '@vue/runtime-core'{
         tasks:{
             id: number,
             name: string,
+            labelids:number[],
             done: boolean,
         },
+        labels:{
+            id:number,
+            text: string,
+        },
         nextTask_id:number,
+        nextLabel:number,
     }
 
     interface ComponentCustomProperties{
